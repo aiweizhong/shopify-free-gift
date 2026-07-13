@@ -111,8 +111,8 @@ const showLoginModal = ref(false);
 const showRegisterModal = ref(false);
 
 // 15个验证码前端预设名单（大写）
-const validCodes = ['CODE001', 'CODE002', 'CODE003', 'CODE004', 'CODE005', 'CODE006', 'CODE007', 'CODE008', 'CODE009', 'CODE010', 'CODE011', 'CODE012', 'CODE013', 'CODE014', 'CODE015'];
-
+// const validCodes = ['CODE001', 'CODE002', 'CODE003', 'CODE004', 'CODE005', 'CODE006', 'CODE007', 'CODE008', 'CODE009', 'CODE010', 'CODE011', 'CODE012', 'CODE013', 'CODE014', 'CODE015'];
+const validCodes = ['0TDWRM3QPP34'];
 const form = reactive({
   firstName: '',
   lastName: '',
