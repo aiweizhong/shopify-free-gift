@@ -137,18 +137,53 @@ function verifyCode() {
 }
 
 // 步骤 2：核心修复！采用 Shopify Cart Permalink 极速通道下单
+/*
 function claimGiftDirectly() {
   const code = inputCode.value.trim().toUpperCase();
-  
   // 构造神奇的免登录一键直达购物车结算网址
   // 语法: https://域名/cart/商品变体ID:数量?discount=优惠码
   const checkoutUrl = `https://${SHOPIFY_DOMAIN}/cart/${VARIANT_ID}:1?discount=${code}`;
-  
   // 打印日志方便你在浏览器控制台（F12）排查调试
   console.log("正在为您极速跳转至官方结算页:", checkoutUrl);
-  
   // 网页重定向跳转（彻底解决原本按钮点不动、无反应的 Bug）
   window.location.href = checkoutUrl;
+}
+*/
+
+function claimGiftDirectly() {
+  const code = inputCode.value.trim().toUpperCase();
+  const password = "girohx"; // 👈 填入你截图中的真实店铺密码
+  
+  // 1. 构造结算页面的最终跳转目标
+  const checkoutUrl = `https://${SHOPIFY_DOMAIN}/cart/${VARIANT_ID}:1?discount=${code}`;
+  
+  console.log("正在尝试静默绕过密码墙并跳转...");
+
+  // 2. 创建一个隐藏的 Form 表单，模拟用户在前台手动输入密码提交的行为
+  const form = document.createElement('form');
+  form.method = 'POST';
+  // 提交到 Shopify 的密码验证接口，并告诉它验证成功后直接跳转到我们的目标结算页
+  form.action = `https://${SHOPIFY_DOMAIN}/password?return_to=${encodeURIComponent(checkoutUrl)}`;
+  form.style.display = 'none';
+
+  // 3. 填入密码字段 (Shopify 固定的密码 input name 是 'password')
+  const passwordInput = document.createElement('input');
+  passwordInput.type = 'hidden';
+  passwordInput.name = 'password';
+  passwordInput.value = password;
+  
+  // 4. 填入 Shopify 表单必需的 utf8 标识
+  const utfInput = document.createElement('input');
+  utfInput.type = 'hidden';
+  utfInput.name = 'utf8';
+  utfInput.value = '✓';
+
+  // 5. 塞入页面并提交
+  form.appendChild(passwordInput);
+  form.appendChild(utfInput);
+  document.body.appendChild(form);
+  
+  form.submit();
 }
 </script>
 
