@@ -110,7 +110,8 @@ const showRules = ref(false);
 // ⚠️ 必填配置：把你的 Shopify 店铺与商品核心 ID 填进这里！
 // ----------------------------------------------------
 const SHOPIFY_DOMAIN = "cgkvgw-jw.myshopify.com"; // 你的真实官方原生域名
-const VARIANT_ID = "10274783920441"; // 👉 替换为：你后台“薄脆公仔”真实的 Variant ID 数字
+// const VARIANT_ID = "10274783920441"; // 👉 替换为：你后台“薄脆公仔”真实的 Variant ID 数字
+const VARIANT_ID = "53767537131833"; // 👉 替换为：你后台“薄脆公仔”真实的 Variant ID 数字
 
 // 后台设置好的 1 个卡号（或者你批量导出的30个合法码数组）
 const validCodes = [
