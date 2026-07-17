@@ -152,38 +152,17 @@ function claimGiftDirectly() {
 
 function claimGiftDirectly() {
   const code = inputCode.value.trim().toUpperCase();
-  const password = "girohx"; // 👈 填入你截图中的真实店铺密码
   
   // 1. 构造结算页面的最终跳转目标
   const checkoutUrl = `https://${SHOPIFY_DOMAIN}/cart/${VARIANT_ID}:1?discount=${code}`;
   
-  console.log("正在尝试静默绕过密码墙并跳转...");
+  console.log("正在为您极速跳转至官方结算页:", checkoutUrl);
 
-  // 2. 创建一个隐藏的 Form 表单，模拟用户在前台手动输入密码提交的行为
-  const form = document.createElement('form');
-  form.method = 'POST';
-  // 提交到 Shopify 的密码验证接口，并告诉它验证成功后直接跳转到我们的目标结算页
-  form.action = `https://${SHOPIFY_DOMAIN}/password?return_to=${encodeURIComponent(checkoutUrl)}`;
-  form.style.display = 'none';
-
-  // 3. 填入密码字段 (Shopify 固定的密码 input name 是 'password')
-  const passwordInput = document.createElement('input');
-  passwordInput.type = 'hidden';
-  passwordInput.name = 'password';
-  passwordInput.value = password;
-  
-  // 4. 填入 Shopify 表单必需的 utf8 标识
-  const utfInput = document.createElement('input');
-  utfInput.type = 'hidden';
-  utfInput.name = 'utf8';
-  utfInput.value = '✓';
-
-  // 5. 塞入页面并提交
-  form.appendChild(passwordInput);
-  form.appendChild(utfInput);
-  document.body.appendChild(form);
-  
-  form.submit();
+  // ⚠️ 注意：由于 Shopify 的安全机制（CSRF 防御），
+  // 无法在外部网站通过隐藏表单 POST 提交密码来绕过密码墙。
+  // 正确的做法是直接跳转。如果店铺有密码墙，用户必须手动输入一次密码。
+  // 建议在正式活动上线前，在 Shopify 后台关闭“密码保护”功能。
+  window.location.href = checkoutUrl;
 }
 </script>
 
